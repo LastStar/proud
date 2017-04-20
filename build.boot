@@ -4,16 +4,16 @@
 (set-env! :resource-paths #{"resources" "src"}
           ;; uncomment this if you write tests for your template:
           ;; :source-paths   #{"test"}
-          :dependencies   '[[org.clojure/clojure "RELEASE"]
-                            [boot/new "RELEASE"]
-                            [adzerk/boot-test "RELEASE" :scope "test"]])
+          :dependencies   '[[org.clojure/clojure "1.9.0-alpha15"]
+                            [boot/new "0.5.2"]
+                            [adzerk/boot-test "1.2.0" :scope "test"]])
 
 (task-options!
  pom {:project     project
       :version     version
-      :description "FIXME: write description"
-      :url         "http://example/FIXME"
-      :scm         {:url "https://github.com/yourname/proud"}
+      :description "Highly opinionated boot template with rum, rum-mdl, potok, specs, tests and so on."
+      :url         "https://laststar.github.io/proud"
+      :scm         {:url "https://github.com/LastStar/proud"}
       :license     {"Eclipse Public License"
                     "http://www.eclipse.org/legal/epl-v10.html"}})
 
