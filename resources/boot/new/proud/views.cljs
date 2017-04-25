@@ -20,5 +20,7 @@
       "Find the code for this page in "
       [:code "`src/{{name}}/views.cljs`"]]
      (if button-clicked
-       [:h3 "Oh, you already figured out the clicking!"]
+       [:div
+        [:h3 "Oh, you already figured out the clicking!"]
+        (emitting-button store "Unclick?" (events/->ButtonUnclicked))]
        (emitting-button store "Click me!" (events/->ButtonClicked)))]))

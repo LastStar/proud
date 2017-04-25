@@ -1,5 +1,5 @@
 (def project 'proud/boot-template)
-(def version "0.1.2-SNAPSHOT")
+(def version "0.1.2")
 
 (set-env! :resource-paths #{"resources" "src"}
           ;; uncomment this if you write tests for your template:
