@@ -26,3 +26,10 @@
                    #(swap! emitted-events conj %))
       (is (@emitted-events (events/->SetButtonState false)))
       (is (@emitted-events (events/->ShowAlert "Hey, hey, hey easy on that clicking!"))))))
+
+(deftest test-routes
+  (testing "Route Matched"
+    (let [event (events/->RouteMatched :page/pricing nil nil)
+          new-state (ptk/update event initial-state)]
+      (is (= (:ui/page new-state) :page/pricing)))))
+

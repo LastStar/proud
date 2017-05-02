@@ -10,11 +10,16 @@
 
 (rum/defc main < rum/reactive [store]
   (let [state (rx/to-atom store)
-        button-clicked (rum/react (rum/cursor state :button/clicked))]
+        button-clicked (rum/react (rum/cursor state :button/clicked))
+        current-page (rum/react (rum/cursor state :ui/page))]
     (mdl/layout
      (mdl/header
       (mdl/header-row
-       (mdl/layout-title "Fresh {{name}} project ")))
+       (mdl/layout-title (str "Fresh {{name}} project - " (name current-page) " page"))
+       (mdl/layout-spacer)
+       (mdl/nav
+        (mdl/link {:href "#/about"} "About")
+        (mdl/link {:href "#/pricing"} "Pricing"))))
      (mdl/main-content
       (mdl/grid
        (mdl/cell

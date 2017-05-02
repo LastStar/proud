@@ -22,3 +22,8 @@
   (watch [_ state _]
     (rx/of (->SetButtonState false)
            (->ShowAlert "Hey, hey, hey easy on that clicking!"))))
+
+(defrecord RouteMatched [name params query]
+  ptk/UpdateEvent
+  (update [_ state]
+    (assoc state :ui/page name)))

@@ -17,6 +17,7 @@
             ["src/{{sanitized}}/views.cljs" (render "views.cljs" data)]
             ["src/{{sanitized}}/events.cljs" (render "events.cljs" data)]
             ["src/{{sanitized}}/store.cljs" (render "store.cljs" data)]
+            ["src/{{sanitized}}/routes.cljs" (render "routes.cljs" data)]
             ["src/{{sanitized}}/spec.cljs" (render "spec.cljs" data)]
             ["test/{{sanitized}}/events_test.cljs" (render "events_test.cljs" data)]
             ["resources/index.html" (render "index.html" data)]
