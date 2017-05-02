@@ -13,7 +13,7 @@
                     [rum-mdl                       "0.2.0"]
                     [funcool/potok                 "2.1.0"]
                     [binaryage/devtools            "0.9.4"      :scope "test"]
-                    [binaryage/dirac               "1.2.5"      :scope "test"]
+                    [binaryage/dirac               "1.2.6"      :scope "test"]
                     [powerlaces/boot-cljs-devtools "0.2.0"      :scope "test"]
                     [crisptrutski/boot-cljs-test   "0.3.0"      :scope "test"]])
 
