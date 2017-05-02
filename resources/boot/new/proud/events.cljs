@@ -27,3 +27,9 @@
   ptk/UpdateEvent
   (update [_ state]
     (assoc state :ui/page name)))
+
+(defrecord ToggleDrawer []
+  ptk/EffectEvent
+  (effect [_ _ _]
+    (-> js/document (.getElementsByClassName "mdl-layout") (aget 0)
+        .-MaterialLayout .toggleDrawer)))

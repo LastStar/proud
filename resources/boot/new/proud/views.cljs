@@ -8,29 +8,47 @@
 (rum/defc emitting-button [store label event]
   (mdl/button {:mdl [:ripple] :on-click #(ptk/emit! store event)} label))
 
-(rum/defc main < rum/reactive [store]
-  (let [state (rx/to-atom store)
-        button-clicked (rum/react (rum/cursor state :button/clicked))
-        current-page (rum/react (rum/cursor state :ui/page))]
-    (mdl/layout
-     (mdl/header
-      (mdl/header-row
-       (mdl/layout-title (str "Fresh {{name}} project - " (name current-page) " page"))
-       (mdl/layout-spacer)
-       (mdl/nav
-        (mdl/link {:href "#/about"} "About")
-        (mdl/link {:href "#/pricing"} "Pricing"))))
-     (mdl/main-content
-      (mdl/grid
-       (mdl/cell
-        {:mdl [:12]}
-        "Find the code for this page in"
-        [:code "`src/{{name}}/views.cljs`"])
-       (if button-clicked
-         (mdl/cell
-          {:mdl [:12]}
-          [:h3 "Oh, you already figured out the clicking!"]
-          (emitting-button store "Unclick?" (events/->ButtonUnclicked)))
-         (mdl/cell
-          {:mdl [:12]}
-          (emitting-button store "Click me!" (events/->ButtonClicked)))))))))
+(rum/defc title [current-page]
+  (mdl/layout-title (str "{{name}} - " (name current-page))))
+
+(rum/defc links [on-click]
+  (mdl/nav
+   (mdl/link {:href "#/about", :on-click on-click} "About")
+   (mdl/link {:href "#/pricing", :on-click on-click} "Pricing")))
+
+(rum/defc header < rum/reactive [store]
+  (let [current-page (-> (rx/to-atom store) (rum/cursor :ui/page) rum/react)]
+    (mdl/header
+     (mdl/header-row
+      (title current-page)
+      (mdl/layout-spacer)
+      (links nil)))))
+
+(rum/defc drawer < rum/reactive [store]
+  (let [current-page (-> (rx/to-atom store) (rum/cursor :ui/page) rum/react)]
+    (mdl/drawer
+     (title current-page)
+     (links #(ptk/emit! store (events/->ToggleDrawer))))))
+
+(rum/defc main-content < rum/reactive [store]
+  (let [btn-clicked (-> (rx/to-atom store) (rum/cursor :button/clicked) rum/react)]
+    (mdl/main-content
+     (mdl/grid
+      (mdl/cell
+       {:mdl [:12]}
+       "Find the code for this page in"
+       [:code "`src/{{name}}/views.cljs`"])
+      (if btn-clicked
+        (mdl/cell
+         {:mdl [:12]}
+         [:p "Oh, you already figured out the clicking!"]
+         (emitting-button store "Unclick?" (events/->ButtonUnclicked)))
+        (mdl/cell
+         {:mdl [:12]}
+         (emitting-button store "Click me!" (events/->ButtonClicked))))))))
+
+(rum/defc main [store]
+  (mdl/layout
+   (header store)
+   (drawer store)
+   (main-content store)))
